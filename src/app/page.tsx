@@ -1,5 +1,6 @@
 "use client";
 
+// import StatusBar from "./components/useDebugValue";
 import DeferredSuspenseSearch from "./components/useDeferredValue";
 import SuspenseSearch from "./components/useDeferredValue";
 import { TestUseId } from "./components/useId";
@@ -17,18 +18,20 @@ export default function Page() {
       {/* <div className="useOnlineStatus">
         <StatusBar />
       </div> */}
-      {/* <TodoApp /> */}
+      <TodosApp />
+      <TodosApp />
       {/* {<TestUseId />} */}
       {/* {<Form />} */}
       {/* <ToolBox /> */}
       {/* {<TabContainer />} */}
       {/* {<TodosApp />} */}
       {/* <ChatIndicator /> */}
-      {/* {<ConnectCheckContainer />} */}
+      {<ConnectCheckContainer />}
       {/* <Counter /> */}
       {/* <VideoPlayer /> */}
       <SuspenseSearch />
       <DeferredSuspenseSearch />
+      {/* <StatusBar/> */}
       <div>리액트 훅에 대해 공부합시다</div>
     </div>
   );

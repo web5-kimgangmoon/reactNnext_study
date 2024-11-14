@@ -28,10 +28,11 @@ let listeners: Listener[] = [];
 export const todoStore = {
   addTodo() {
     todos = [...todos, { id: nextId++, text: "Todo #" + nextId }];
-    emitChange();
+    // emitChange();
   },
   subscribe(listener: Listener) {
     listeners = [...listeners, listener];
+    console.log(listener);
     return () => {
       listeners = listeners.filter((l) => l !== listener);
     };
@@ -41,11 +42,11 @@ export const todoStore = {
   },
 };
 
-function emitChange() {
-  for (let listener of listeners) {
-    listener();
-  }
-}
+// function emitChange() {
+//   for (let listener of listeners) {
+//     listener();
+//   }
+// }
 
 import { useSyncExternalStore } from "react";
 
@@ -54,6 +55,9 @@ export default function TodosApp() {
     todoStore.subscribe,
     todoStore.getSnapshot
   );
+
+  // 첫번째 매개변수는 구독 함수, 두번째 매개변수는 스냅샷 getter, 세번째는 선택 가능한 매개변수로 초기 스냅샷.
+
   return (
     <>
       <button onClick={() => todoStore.addTodo()}>Add todo</button>
@@ -137,7 +141,9 @@ export function ConnectCheckContainer() {
 }
 
 // 내가 이해한 내용, chatGPT 답변
-// 외부 저장소와 원활히 소통하기 위한 옵저버 패턴의 useState다.
+// 외부 저장소와 원활히 소통하기 위한 옵저버 패턴의 useContext다.
 // 옵저버 패턴은 객체의 확장과 유연성이 중요할 경우 유용하다.
-// 옵저버 패턴 구현을 위해 이용할 수 있다. 단, 그 경우 용도를 명확히 하도록
+// 옵저버 패턴 구현을 위해 이용하기엔 조금 부적합하다. 외부 저장소에 따라 컴포넌트들을 동기적 관리하기 위한 훅이므로.
+
+// 구독을 통해 상태에 접근할 수 있게 해주고, 미리 정의해준 구독자 함수들의 배열을 실행시켜줌으로써 변화를 적용시켜 준다.
 // 커스텀 훅으로 이용하거나 주석이나 문서를 명확히 작성해주자.
